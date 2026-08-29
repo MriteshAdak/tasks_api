@@ -1,7 +1,7 @@
 """FastAPI application factory and Lambda-importable app instance."""
 
-from contextlib import asynccontextmanager
 import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -17,7 +17,6 @@ from tasks_api.exceptions import (
 from tasks_api.infrastructure import get_settings
 from tasks_api.infrastructure.database import engine
 from tasks_api.routers import system, task
-
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +61,9 @@ def create_app() -> FastAPI:
         return _error_response(404, str(error))
 
     @application.exception_handler(ValidationException)
-    async def handle_domain_validation(_: Request, error: ValidationException) -> JSONResponse:
+    async def handle_domain_validation(
+        _: Request, error: ValidationException
+    ) -> JSONResponse:
         return _error_response(400, str(error))
 
     @application.exception_handler(RequestValidationError)

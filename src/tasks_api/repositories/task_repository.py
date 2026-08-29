@@ -61,7 +61,9 @@ class TaskRepository:
 
         try:
             query = select(Task).where(Task.user_id == user_id)
-            count_query = select(func.count()).select_from(Task).where(Task.user_id == user_id)
+            count_query = (
+                select(func.count()).select_from(Task).where(Task.user_id == user_id)
+            )
 
             if status is not None:
                 query = query.where(Task.status == status)

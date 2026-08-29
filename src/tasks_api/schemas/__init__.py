@@ -1,5 +1,6 @@
 """Request and response schemas owned by :mod:`task_api`."""
 
+from .auth import TokenClaims
 from .task import (
     PaginationMeta,
     TaskCreateRequest,
@@ -7,8 +8,6 @@ from .task import (
     TaskResponse,
     TaskUpdateRequest,
 )
-
-from .auth import TokenClaims
 
 __all__ = [
     "PaginationMeta",

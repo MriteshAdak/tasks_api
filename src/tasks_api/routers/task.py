@@ -5,7 +5,6 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Query, Response, status
 
 from tasks_api.auth.dependencies import get_current_user
-from tasks_api.schemas.auth import TokenClaims
 from tasks_api.dependencies import get_task_service
 from tasks_api.schemas import (
     PaginationMeta,
@@ -14,8 +13,8 @@ from tasks_api.schemas import (
     TaskResponse,
     TaskUpdateRequest,
 )
+from tasks_api.schemas.auth import TokenClaims
 from tasks_api.services import TaskService
-
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 

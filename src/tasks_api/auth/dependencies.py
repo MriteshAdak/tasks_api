@@ -6,9 +6,8 @@ from fastapi import Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from tasks_api.auth.jwt import verify_access_token
-from tasks_api.schemas.auth import TokenClaims
 from tasks_api.exceptions import AuthenticationException
-
+from tasks_api.schemas.auth import TokenClaims
 
 logger = logging.getLogger(__name__)
 _bearer_scheme = HTTPBearer(auto_error=False)
@@ -27,6 +26,9 @@ def get_current_user(
     if credentials is None:
         raise AuthenticationException("Bearer authentication is required.")
     claims = verify_access_token(credentials.credentials)
-    logger.info("Authenticated task_api request for user_id=%s, username=%s", claims.sub, claims.username)
+    logger.info(
+        "Authenticated task_api request for user_id=%s, username=%s",
+        claims.sub,
+        claims.username,
+    )
     return claims
-

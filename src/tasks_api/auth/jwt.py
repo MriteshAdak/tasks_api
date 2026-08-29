@@ -6,9 +6,9 @@ import jwt
 from jwt import InvalidTokenError
 from pydantic import ValidationError
 
-from tasks_api.schemas.auth import TokenClaims
 from tasks_api.exceptions import AuthenticationException
 from tasks_api.infrastructure import get_settings
+from tasks_api.schemas.auth import TokenClaims
 
 
 def verify_access_token(token: str) -> TokenClaims:
@@ -21,7 +21,7 @@ def verify_access_token(token: str) -> TokenClaims:
 
     settings = get_settings()
     try:
-        claims = jwt.decode( #type: ignore
+        claims = jwt.decode(  # type: ignore
             token,
             settings.require_jwt_secret(),
             algorithms=[settings.jwt_algorithm],
@@ -39,8 +39,12 @@ def verify_access_token(token: str) -> TokenClaims:
     try:
         parsed = UUID(str(token_claims.sub))
         if parsed.version != 4:
-            raise AuthenticationException("Access token subject must be a valid UUIDv4.")
+            raise AuthenticationException(
+                "Access token subject must be a valid UUIDv4."
+            )
     except (ValueError, AttributeError) as error:
-        raise AuthenticationException("Access token subject must be a valid UUIDv4.") from error
+        raise AuthenticationException(
+            "Access token subject must be a valid UUIDv4."
+        ) from error
 
     return token_claims

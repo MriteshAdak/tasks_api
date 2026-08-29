@@ -1,12 +1,11 @@
 """Runtime configuration owned by :mod:`task_api`."""
 
-from dataclasses import dataclass
-from functools import lru_cache
 import os
 import re
+from dataclasses import dataclass
+from functools import lru_cache
 
 from dotenv import find_dotenv, load_dotenv
-
 
 _SCHEMA_NAME = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
@@ -23,7 +22,7 @@ class Settings:
     log_level: str
 
     @classmethod
-    def from_environment(cls) -> "Settings":
+    def from_environment(cls) -> Settings:
         """Load and validate runtime configuration from environment variables."""
 
         # Load environment variables from .env files
@@ -32,13 +31,17 @@ class Settings:
 
         database_url = os.environ.get("DATABASE_URL")
         if not database_url:
-            raise RuntimeError("DATABASE_URL must be set to a PostgreSQL connection URL")
+            raise RuntimeError(
+                "DATABASE_URL must be set to a PostgreSQL connection URL"
+            )
         if not database_url.startswith(("postgresql://", "postgresql+psycopg2://")):
             raise RuntimeError("DATABASE_URL must use a PostgreSQL SQLAlchemy URL")
 
         database_schema = os.environ.get("TASK_API_DB_SCHEMA", "task_api")
         if not _SCHEMA_NAME.fullmatch(database_schema):
-            raise RuntimeError("TASK_API_DB_SCHEMA must be a valid PostgreSQL schema name")
+            raise RuntimeError(
+                "TASK_API_DB_SCHEMA must be a valid PostgreSQL schema name"
+            )
 
         jwt_secret = os.environ.get("JWT_SECRET")
 

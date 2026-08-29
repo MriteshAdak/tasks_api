@@ -3,7 +3,6 @@
 import logging
 from uuid import UUID
 
-from tasks_api.enums import TaskStatus
 from tasks_api.models import Task
 from tasks_api.repositories import TaskRepository
 from tasks_api.schemas import TaskCreateRequest, TaskResponse, TaskUpdateRequest
@@ -61,7 +60,11 @@ class TaskService:
             validate_task_status(status)
 
         tasks, total = self._repository.get_tasks_by_user(
-            user_id, limit=limit, offset=offset, status=status, sort_by=sort_by,
+            user_id,
+            limit=limit,
+            offset=offset,
+            status=status,
+            sort_by=sort_by,
         )
         return [TaskResponse.model_validate(t) for t in tasks], total
 
@@ -75,7 +78,10 @@ class TaskService:
         return TaskResponse.model_validate(task)
 
     def update_task(
-        self, task_id: UUID, user_id: UUID, payload: TaskUpdateRequest,
+        self,
+        task_id: UUID,
+        user_id: UUID,
+        payload: TaskUpdateRequest,
     ) -> TaskResponse:
         """Update an owned task with validated field changes."""
 
