@@ -38,3 +38,25 @@ dev = [
     "pytest>=9.1.1",
     "ruff>=0.16.5",
 ]
+
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+select = [
+    "E",   # Pycodestyle errors
+    "F",   # Pyflakes
+    "I",   # Import sorting (replaces isort)
+    "UP",  # Pyupgrade
+    "B",   # Bugbear
+]
+ignore = []
+fix = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
