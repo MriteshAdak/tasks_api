@@ -41,7 +41,10 @@ def create_app() -> FastAPI:
 
     application = FastAPI(
         title="Task API",
-        description="Task management service - owns task records, CRUD, validation, and ownership checks.",
+        description=(
+            "Task management service - owns task records, CRUD, validation,"
+            " and ownership checks."
+        ),
         version="0.1.0",
         lifespan=lifespan,
     )

@@ -66,7 +66,7 @@ class Settings:
         )
 
     def require_jwt_secret(self) -> str:
-        """Return the verification secret, failing only when the API runtime needs it."""
+        """Return verification secret, failing only when the API runtime needs it."""
 
         if not self.jwt_secret:
             raise RuntimeError("JWT_SECRET must be set")

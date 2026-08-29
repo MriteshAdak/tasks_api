@@ -18,9 +18,11 @@ def validate_task_status(status: str) -> TaskStatus:
 
     try:
         return TaskStatus(status)
-    except ValueError:
+    except ValueError as err:
         valid = [s.value for s in TaskStatus]
-        raise ValidationException(f"Invalid status '{status}'. Must be one of: {valid}")
+        raise ValidationException(
+            f"Invalid status '{status}'. Must be one of: {valid}"
+        ) from err
 
 
 def validate_due_date(due_date: datetime) -> None:

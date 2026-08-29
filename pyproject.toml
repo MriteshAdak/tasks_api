@@ -44,8 +44,14 @@ dev = [
 line-length = 88
 target-version = ["py311"]
 
+[tool.isort]
+profile = "black"
+line_length = 88
+
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
 select = [
     "E",   # Pycodestyle errors
     "F",   # Pyflakes
@@ -53,8 +59,12 @@ select = [
     "UP",  # Pyupgrade
     "B",   # Bugbear
 ]
-ignore = []
-fix = true
+ignore = [
+    "B008",  # Do not perform function call `Depends` in argument defaults (FastAPI pattern)
+]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.params.Depends", "fastapi.Query"]
 
 [tool.ruff.format]
 quote-style = "double"
