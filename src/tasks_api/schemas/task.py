@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from task_api.enums import TaskStatus
+from tasks_api.enums import TaskStatus
 
 
 class TaskCreateRequest(BaseModel):
